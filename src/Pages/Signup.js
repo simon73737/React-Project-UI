@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { withNavigate } from '../Utils/withNavigate';
 
-class Login extends Component {
+class Signup extends Component {
   constructor() {
     super();
     this.state = {
-      pageTitle: "Login Page",
+      pageTitle: "Sign Up Page",
+      firstName: "",
+      firstNameError: false,
+      lastName: "",
+      lastNameError: false,
       email: "",
       emailError: false,
       password: "",
@@ -14,8 +18,17 @@ class Login extends Component {
     };
   };
 
-  login() {
+  signUp() {
     let errors = {};
+    // Check for errors
+    if(this.state.firstName === "") {
+      errors.firstNameError = true;
+      this.setState({...this.state, firstNameError: true, errors: true});
+    }
+    if(this.state.lastName === "") {
+      errors.lastNameError = true;
+      this.setState({...this.state, lastNameError: true, errors: true});
+    }
     // Check if email format is valid
     if(!this.validateEmail(this.state.email)) {
       errors.emailError = true;
@@ -33,9 +46,11 @@ class Login extends Component {
     
      // Update the state with the errors
     this.setState(errors, () => {
+      console.log("Calling Sign Up");
+      console.log(this.state);
+
       // Check if the errors object is empty
       if (Object.keys(errors).length === 0) {
-        // TODO: Hook up login API
         console.log("Make API call to sign up the user");
         this.props.navigate("/")
       } else {
@@ -54,8 +69,39 @@ class Login extends Component {
       <>
         <section className="flex basis-full h-screen bg-gradient-to-r from-green-400 to-blue-500">
           <div className="w-full h-full flex justify-center items-center">
-            <div className="px-10 py-16 bg-white w-1/5 flex-col rounded-xl shadow-xl">
-              {/* Being Input Fields */}
+            <div className="py-16 bg-white w-1/5 flex-col rounded-xl shadow-xl">
+              <h4 className="flex justify-center w-full text-3xl font-bold -mt-8 mb-4 pb-2 border-b">Create Account</h4>
+              {/* Begin User Info Fields */}
+              <div className="flex justify-center">
+                {!this.state.firstNameError ? 
+                  <input
+                    onChange={e => this.setState({...this.state, firstName: e.target.value})}
+                    type="text"
+                    className="block w-2/3 px-4 py-4 mt-4 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"
+                    placeholder="First Name"/>
+                : 
+                  <input
+                    onChange={e => this.setState({...this.state, firstName: e.target.value, firstNameError: false})}
+                    type="text"
+                    className="block w-2/3 px-4 py-4 mt-4 text-xl placeholder-gray-400 bg-gray-200 rounded-lg ring outline-none ring-4 ring-opacity-50 ring-red-600 focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"
+                    placeholder="First Name"/>
+                }
+              </div>
+              <div className="flex justify-center">
+                {!this.state.lastNameError ? 
+                  <input
+                    onChange={e => this.setState({...this.state, lastName: e.target.value})}
+                    type="text"
+                    className="block w-2/3 px-4 py-4 mt-4 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"
+                    placeholder="Last Name"/>
+                : 
+                  <input
+                    onChange={e => this.setState({...this.state, lastName: e.target.value, lastNameError: false})}
+                    type="text"
+                    className="block w-2/3 px-4 py-4 mt-4 text-xl placeholder-gray-400 bg-gray-200 rounded-lg ring outline-none ring-4 ring-opacity-50 ring-red-600 focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"
+                    placeholder="Last Name"/>
+                }
+              </div>
               <div className="flex justify-center">
                 {!this.state.emailError ? 
                   <input
@@ -92,27 +138,17 @@ class Login extends Component {
               {this.state.emailError ?
                 <h4 className="flex justify-center italic w-full mt-2 font-bold mb-4 pb-2 text-red-600 text-opacity-50">** Email is invalid **</h4>
               : null}
-              {/* End Input Fields */}
-              <div className="mt-8 space-y-10">
+              {/* End User Input Fields */}
+              <div className="mt-4 space-y-4">
                 <div className="flex justify-center">
-                <button 
+                  <button 
                     className="flex items-center justify-center w-2/3 py-3 text-white bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600"
-                    onClick={() => this.login()}>
-                    <p>Login</p>
+                    onClick={() => this.signUp()}>
+                    <p>Create Account</p>
                   </button>
                 </div>
               </div>
               
-              <div className="flex justify-center">
-                <div className="flex flex-col w-full pt-6 mt-6 border-t border-gray-200">
-                  <p className="flex justify-center inline text-sm font-medium text-gray-700">
-                    Don't have an account?
-                  </p>
-                  <a className="flex justify-center inline text-sm font-medium text-purple-700 hover:text-purple-900" href= { '/signup' }>
-                    Create an account
-                  </a>
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -121,4 +157,4 @@ class Login extends Component {
   }
 }
 
-export default withNavigate(Login);
+export default withNavigate(Signup);
