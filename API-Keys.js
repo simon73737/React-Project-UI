@@ -1,1 +1,0 @@
-const alphavantageKey = LJQDED3NVF23H7J0;
