@@ -69,8 +69,8 @@ class Signup extends Component {
       <>
         <section className="flex basis-full h-screen bg-gradient-to-r from-green-400 to-blue-500">
           <div className="w-full h-full flex justify-center items-center">
-            <div className="py-16 bg-white w-1/5 flex-col rounded-xl shadow-xl">
-              <h4 className="flex justify-center w-full text-3xl font-bold -mt-8 mb-4 pb-2 border-b">Create Account</h4>
+            <div className="py-8 bg-white w-1/5 flex-col rounded-xl shadow-xl">
+              <h4 className="flex justify-center w-full text-3xl font-bold mb-4 pb-2 border-b">Create Account</h4>
               {/* Begin User Info Fields */}
               <div className="flex justify-center">
                 {!this.state.firstNameError ? 
@@ -149,6 +149,17 @@ class Signup extends Component {
                 </div>
               </div>
               
+              <div className="flex justify-center">
+                <div className="flex flex-col w-full pt-6 mt-6 border-t border-gray-200">
+                  <p className="flex justify-center inline text-sm font-medium text-gray-700">
+                    Already have an account?
+                  </p>
+                  <a className="flex justify-center inline text-sm font-medium text-purple-700 hover:text-purple-900" href= { '/login' }>
+                    Back to login
+                  </a>
+                </div>
+              </div>
+
             </div>
           </div>
         </section>

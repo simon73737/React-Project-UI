@@ -54,8 +54,8 @@ class Login extends Component {
       <>
         <section className="flex basis-full h-screen bg-gradient-to-r from-green-400 to-blue-500">
           <div className="w-full h-full flex justify-center items-center">
-            <div className="px-10 py-16 bg-white w-1/5 flex-col rounded-xl shadow-xl">
-            <h4 className="flex justify-center w-full text-3xl font-bold -mt-8 mb-4 pb-2 border-b">Login</h4>
+            <div className="py-8 bg-white w-1/5 flex-col rounded-xl shadow-xl">
+            <h4 className="flex justify-center w-full text-3xl font-bold mb-4 pb-2 border-b">Login</h4>
               {/* Being Input Fields */}
               <div className="flex justify-center">
                 {!this.state.emailError ? 
