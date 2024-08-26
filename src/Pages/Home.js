@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withNavigate } from '../Utils/withNavigate';
+import ExpenseManagement from '../Components/ExpenseManagement';
 
 class Home extends Component {
   constructor() {
@@ -16,9 +17,8 @@ class Home extends Component {
           <div className="flex flex-row pt-20 pb-8 space-x-4 px-4 h-full w-full">
 
             {/* Stats Section */}
-            <div className="w-1/3 h-full border-4 bg-white">
-              <label className="w-full text-xl flex justify-center"> STATS </label>
-
+            <div className="w-1/3 h-full pb-2 border-4 bg-white">
+              <ExpenseManagement />
             </div>
 
             {/* Investment Tracking Section */}
@@ -33,7 +33,7 @@ class Home extends Component {
                 </div>
                 <div className="w-1/2 flex flex-row-reverse">
                     <button
-                      class="w-2/5 h-full mx-4 rounded-md bg-[#24A65C] hover:bg-accent text-white"
+                      class="w-2/5 h-full mx-4 rounded-md bg-[#24A65C] text-white"
                       onClick={() => console.log("CLICKED")}>
                       Add Investment
                     </button>
