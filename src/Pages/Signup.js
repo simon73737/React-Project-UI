@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withNavigate } from '../Utils/withNavigate';
+import axios from 'axios';
 
 class Signup extends Component {
   constructor() {
@@ -51,8 +52,20 @@ class Signup extends Component {
 
       // Check if the errors object is empty
       if (Object.keys(errors).length === 0) {
-        console.log("Make API call to sign up the user");
-        this.props.navigate("/")
+        axios.post('/signup', {
+          info: {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            password: this.state.password
+          }
+        }).then((res) => {
+          if(res.auth == true) {
+            this.props.navigate("/");
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
       } else {
         console.log("Errors found, not making API call");
       }

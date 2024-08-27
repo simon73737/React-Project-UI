@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withNavigate } from '../Utils/withNavigate';
+import axios from 'axios';
 
 class Login extends Component {
   constructor() {
@@ -35,9 +36,15 @@ class Login extends Component {
     this.setState(errors, () => {
       // Check if the errors object is empty
       if (Object.keys(errors).length === 0) {
-        // TODO: Hook up login API
-        console.log("Make API call to sign up the user");
-        this.props.navigate("/")
+        // Data all looks good, Call login API
+        axios.post('/login', {
+          email: this.state.email,
+          password: this.state.password
+        }).then((res) => {
+          this.props.navigate("/");
+        }).catch((error) => {
+          console.log(error);
+        });
       } else {
         console.log("Errors found, not making API call");
       }
@@ -96,7 +103,7 @@ class Login extends Component {
               {/* End Input Fields */}
               <div className="mt-8 space-y-10">
                 <div className="flex justify-center">
-                <button 
+                  <button 
                     className="flex items-center justify-center w-2/3 py-3 text-white bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600"
                     onClick={() => this.login()}>
                     <p>Login</p>
