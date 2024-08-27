@@ -41,7 +41,7 @@ class Login extends Component {
           email: this.state.email,
           password: this.state.password
         }).then((res) => {
-          this.props.navigate("/");
+          this.props.navigate("/dashboard");
         }).catch((error) => {
           console.log(error);
         });
