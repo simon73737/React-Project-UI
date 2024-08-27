@@ -3,8 +3,8 @@ import { withNavigate } from '../Utils/withNavigate';
 import axios from 'axios';
 
 class Signup extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       pageTitle: "Sign Up Page",
       firstName: "",
@@ -15,9 +15,18 @@ class Signup extends Component {
       emailError: false,
       password: "",
       passwordError: false,
-      errors: false
+      errors: false,
     };
   };
+
+  // If the user came from the hompage and entered an email then prepopulate that value
+  componentDidMount() {
+    let email = localStorage.getItem('email');
+    if(email) {
+      this.setState({...this.state, email: email});
+      localStorage.removeItem('email');
+    }
+  }
 
   signUp() {
     let errors = {};
@@ -61,7 +70,7 @@ class Signup extends Component {
           }
         }).then((res) => {
           if(res.auth == true) {
-            this.props.navigate("/");
+            this.props.navigate("/dashboard");
           }
         }).catch((error) => {
           console.log(error);
@@ -119,6 +128,7 @@ class Signup extends Component {
                 {!this.state.emailError ? 
                   <input
                     onChange={e => this.setState({...this.state, email: e.target.value})}
+                    value={this.state.email}
                     type="text"
                     className="block w-2/3 px-4 py-4 mt-4 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"
                     placeholder="Email"/>
