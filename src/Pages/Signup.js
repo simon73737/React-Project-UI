@@ -69,9 +69,7 @@ class Signup extends Component {
             password: this.state.password
           }
         }).then((res) => {
-          if(res.auth == true) {
-            this.props.navigate("/dashboard");
-          }
+          this.props.navigate("/dashboard");
         }).catch((error) => {
           console.log(error);
         });
