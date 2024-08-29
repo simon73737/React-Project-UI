@@ -1,5 +1,6 @@
 import React, { Component, createRef  } from 'react';
 import { withNavigate } from '../Utils/withNavigate';
+import axios from 'axios';
 import Main from '../Assets/Main.png';
 import Profile from '../Assets/Profile-Icon.png';
 import ProfileDropDown from '../Components/ProfileDropdown';
@@ -9,11 +10,33 @@ class Menubar extends Component {
     super();
     this.state = {
       pageTitle: "Login Page",
-      auth: true,
+      auth: false,
       openDropDown: false
     };
     this.dropdownRef = createRef();
     this.handleCloseDropdown = this.handleCloseDropdown.bind(this);
+  };
+
+  componentDidMount() {
+    this.checkAuth();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.auth !== prevState.auth) {
+      this.checkAuth();
+    }
+  }
+
+  checkAuth = () => {
+    axios.get('/isAuth', {
+      headers: {
+        'x-access-token': localStorage.getItem('x-access-token')
+      }
+    }).then((res) => {
+      this.setState({ auth: true });
+    }).catch((error) => {
+      this.setState({ auth: false });
+    });
   };
 
   showDropdown() {
@@ -46,11 +69,13 @@ class Menubar extends Component {
                 className="w-12 h-12 mx-6 mt-2 object-cover cursor-pointer rounded-full"
                 onClick={() => this.showDropdown()}/>
             </div>
+            {!this.state.auth ?
             <button
               className="h-12 ml-4 mt-2 hover:font-bold"
               onClick={() => this.props.navigate("/login")}>
                 Login
             </button>
+            : null }
             <button
               className="h-12 mt-2 hover:font-bold"
               onClick={() => this.props.navigate("/dashboard")}>

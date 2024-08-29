@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { withNavigate } from '../Utils/withNavigate';
 import ExpenseManagement from '../Components/ExpenseManagement';
 
@@ -9,6 +10,19 @@ class Dashboard extends Component {
       pageTitle: "Dashboard"
     };
   };
+
+  componentDidMount() {
+    axios.get('/isAuth', {
+      headers: {
+        'x-access-token': localStorage.getItem('x-access-token')
+      }
+    }).then((res) => {
+      console.log(res)
+    }).catch((error) => {
+      console.log(error);
+      this.props.navigate("/");
+    });
+  }
 
   render() {
     return (

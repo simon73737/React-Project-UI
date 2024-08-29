@@ -69,6 +69,7 @@ class Signup extends Component {
             password: this.state.password
           }
         }).then((res) => {
+          localStorage.setItem('x-access-token', res.data.token);
           this.props.navigate("/dashboard");
         }).catch((error) => {
           console.log(error);

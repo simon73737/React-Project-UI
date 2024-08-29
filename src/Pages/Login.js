@@ -41,6 +41,8 @@ class Login extends Component {
           email: this.state.email,
           password: this.state.password
         }).then((res) => {
+          console.log(res)
+          localStorage.setItem('x-access-token', res.data.token);
           this.props.navigate("/dashboard");
         }).catch((error) => {
           console.log(error);
